@@ -1,0 +1,6 @@
+﻿  Source.cpp
+C:\Users\anaca\Documents\Caro\Programacion\Simulator_Amazon_Service_Proyect\Project\Project\Source.cpp(40,18): warning C4244: 'initializing': conversion from 'std::streamoff' to 'int', possible loss of data
+C:\Users\anaca\Documents\Caro\Programacion\Simulator_Amazon_Service_Proyect\Project\Project\Source.cpp(47,21): warning C4018: '<': signed/unsigned mismatch
+C:\Users\anaca\Documents\Caro\Programacion\Simulator_Amazon_Service_Proyect\Project\Project\Source.cpp(171,22): warning C4018: '<': signed/unsigned mismatch
+C:\Users\anaca\Documents\Caro\Programacion\Simulator_Amazon_Service_Proyect\Project\Project\Source.cpp(288,22): warning C4018: '<': signed/unsigned mismatch
+  Project.vcxproj -> C:\Users\anaca\Documents\Caro\Programacion\Simulator_Amazon_Service_Proyect\Project\Debug\Project.exe
