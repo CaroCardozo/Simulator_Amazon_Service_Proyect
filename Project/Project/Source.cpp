@@ -1585,10 +1585,10 @@ BOOL CALLBACK fStart(HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam) {
 	switch (msg) {
 		// _CTR_SECURE_NO_WARNINGS
 	case WM_INITDIALOG: {
+		loadUser();
 	}break;
 	case WM_TIMER: {// se llama cada tick (1000 que pusimos)
 		setTime(hwnd, STC_ST_DATE);
-		loadUser();
 	}break;
 
 	case WM_COMMAND: {
@@ -1952,7 +1952,7 @@ void saveUserId() {
 		return;
 	}
 	else {
-		MessageBox(NULL, "No se pudo abrir el archivo", "ERROR", MB_ICONERROR);
+		MessageBox(NULL, "No se pudo abrir el archivo de ID Usuarios", "ERROR", MB_ICONERROR);
 		return;
 	}
 }
@@ -1965,7 +1965,7 @@ void loadUserId() {
 		return;
 	}
 	else {
-		MessageBox(NULL, "No se pudo abrir el archivo", "ERROR", MB_ICONERROR);
+		MessageBox(NULL, "No se pudo abrir el archivo de ID Usuarios", "ERROR", MB_ICONERROR);
 		return;
 	}
 }
@@ -1978,7 +1978,7 @@ void saveProdId() {
 		return;
 	}
 	else {
-		MessageBox(NULL, "No se pudo abrir el archivo", "ERROR", MB_ICONERROR);
+		MessageBox(NULL, "No se pudo abrir el archivo de ID Productos", "ERROR", MB_ICONERROR);
 		return;
 	}
 }
@@ -1991,7 +1991,7 @@ void loadProdId() {
 		return;
 	}
 	else {
-		MessageBox(NULL, "No se pudo abrir el archivo", "ERROR", MB_ICONERROR);
+		MessageBox(NULL, "No se pudo abrir el archivo de ID Productos", "ERROR", MB_ICONERROR);
 		return;
 	}
 }
@@ -2004,7 +2004,7 @@ void saveEnvId() {
 		return;
 	}
 	else {
-		MessageBox(NULL, "No se pudo abrir el archivo", "ERROR", MB_ICONERROR);
+		MessageBox(NULL, "No se pudo abrir el archivo de ID envios", "ERROR", MB_ICONERROR);
 		return;
 	}
 }
@@ -2017,7 +2017,7 @@ void loadEnvId() {
 		return;
 	}
 	else {
-		MessageBox(NULL, "No se pudo abrir el archivo", "ERROR", MB_ICONERROR);
+		MessageBox(NULL, "No se pudo abrir el archivo de ID envios", "ERROR", MB_ICONERROR);
 		return;
 	}
 }
@@ -2034,7 +2034,7 @@ void saveUser(User* origin) {
 		return;
 	}
 	else {
-		MessageBox(NULL, "No se pudo abrir el archivo", "ERROR", MB_ICONERROR);
+		MessageBox(NULL, "No se pudo abrir el archivo de usuarios", "ERROR", MB_ICONERROR);
 		return;
 	}
 }
@@ -2043,7 +2043,7 @@ void loadUser() {
 	if (archive.is_open()) {
 		int totalChar = archive.tellg();
 		if (totalChar < 1) {
-			MessageBox(NULL, "Archivo vacio", "ERROR", MB_ICONERROR);
+			MessageBox(NULL, "Archivo de usuarios vacio", "ERROR", MB_ICONERROR);
 			return;
 		}
 		for (int i = 0; i < (totalChar / sizeof(User)); i++) {
@@ -2052,10 +2052,10 @@ void loadUser() {
 				oUser = new User;
 				archive.seekg(i * sizeof(User));
 				archive.read(reinterpret_cast<char*>(temp), sizeof(User));
+				oUser->userId = temp->userId;
+				oUser->username = temp->username;
 				oUser->password = temp->password;
 				oUser->name = temp->name;
-				oUser->username = temp->username;
-				oUser->userId = temp->userId;
 				oUser->alias = temp->alias;
 				oUser->prev = NULL;
 				oUser->next = NULL;
@@ -2088,7 +2088,7 @@ void loadUser() {
 		return;
 	}
 	else {
-		MessageBox(NULL, "No se pudo abrir el archivo", "ERROR", MB_ICONERROR);
+		MessageBox(NULL, "No se pudo abrir el archivo de usuarios", "ERROR", MB_ICONERROR);
 		return;
 	}
 }
@@ -2098,7 +2098,7 @@ void loadProduct() {
 	if (archive.is_open()) {
 		int totalChar = archive.tellg();
 		if (totalChar < 1) {
-			MessageBox(NULL, "Archivo vacio", "ERROR", MB_ICONERROR);
+			MessageBox(NULL, "Archivo de productos vacio", "ERROR", MB_ICONERROR);
 			return;
 		}
 		for (int i = 0; i < (totalChar / sizeof(Producto)); i++) {
@@ -2146,12 +2146,12 @@ void loadProduct() {
 				continue;
 			}
 		}
-		MessageBox(NULL, "Carga de usuarios exitosamente", "Exito", MB_ICONINFORMATION);
+		MessageBox(NULL, "Carga de productos exitosamente", "Exito", MB_ICONINFORMATION);
 		archive.close();
 		return;
 	}
 	else {
-		MessageBox(NULL, "No se pudo abrir el archivo", "ERROR", MB_ICONERROR);
+		MessageBox(NULL, "No se pudo abrir el archivo de productos", "ERROR", MB_ICONERROR);
 		return;
 	}
 }
@@ -2162,12 +2162,12 @@ void saveProduct(Producto* origin) {
 			archive.write(reinterpret_cast<char*>(origin), sizeof(Producto));
 			origin = origin->next;
 		}
-		MessageBox(NULL, "Usuarios guardados exitosamente", "Exito", MB_ICONINFORMATION);
+		MessageBox(NULL, "Productos guardados exitosamente", "Exito", MB_ICONINFORMATION);
 		archive.close();
 		return;
 	}
 	else {
-		MessageBox(NULL, "No se pudo abrir el archivo", "ERROR", MB_ICONERROR);
+		MessageBox(NULL, "No se pudo abrir el archivo de productos", "ERROR", MB_ICONERROR);
 		return;
 	}
 }
@@ -2177,7 +2177,7 @@ void loadEnvio() {
 	if (archive.is_open()) {
 		int totalChar = archive.tellg();
 		if (totalChar < 1) {
-			MessageBox(NULL, "Archivo vacio", "ERROR", MB_ICONERROR);
+			MessageBox(NULL, "Archivo de envios vacio", "ERROR", MB_ICONERROR);
 			return;
 		}
 		for (int i = 0; i < (totalChar / sizeof(Envio)); i++) {
@@ -2229,12 +2229,12 @@ void loadEnvio() {
 				continue;
 			}
 		}
-		MessageBox(NULL, "Carga de usuarios exitosamente", "Exito", MB_ICONINFORMATION);
+		MessageBox(NULL, "Carga de envios exitosamente", "Exito", MB_ICONINFORMATION);
 		archive.close();
 		return;
 	}
 	else {
-		MessageBox(NULL, "No se pudo abrir el archivo", "ERROR", MB_ICONERROR);
+		MessageBox(NULL, "No se pudo abrir el archivo de envios", "ERROR", MB_ICONERROR);
 		return;
 	}
 }
@@ -2245,12 +2245,12 @@ void saveEnvio(Envio* origin) {
 			archive.write(reinterpret_cast<char*>(origin), sizeof(Envio));
 			origin = origin->next;
 		}
-		MessageBox(NULL, "Usuarios guardados exitosamente", "Exito", MB_ICONINFORMATION);
+		MessageBox(NULL, "Envios guardados exitosamente", "Exito", MB_ICONINFORMATION);
 		archive.close();
 		return;
 	}
 	else {
-		MessageBox(NULL, "No se pudo abrir el archivo", "ERROR", MB_ICONERROR);
+		MessageBox(NULL, "No se pudo abrir el archivo de envios", "ERROR", MB_ICONERROR);
 		return;
 	}
 }
